@@ -1,0 +1,53 @@
+<!-- 
+Install with mvn -f ceinstall.pom install
+ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.ecmdeveloper.ant</groupId>
+  <artifactId>cetasks</artifactId>
+  <version>0.0.1</version>
+  <name>Content Engine Task</name>
+  <description>This project contains task to maintain your Content Engine repository.</description>
+
+  <dependencies>
+    <dependency>
+    	<groupId>org.apache.ant</groupId>
+    	<artifactId>ant</artifactId>
+    	<version>1.9.4</version>
+    </dependency>
+	 <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.14</version>
+	</dependency>
+    <dependency>
+    	<groupId>com.ibm.filenet</groupId>
+    	<artifactId>jace</artifactId>
+    	<version>5.2.1</version>
+    </dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.ant/ant-testutil -->
+	<dependency>
+	    <groupId>org.apache.ant</groupId>
+	    <artifactId>ant-testutil</artifactId>
+	    <version>1.9.2</version>
+	</dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>	
+  </dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.4</version>
+				<configuration>
+					<groups>com.ecmdeveloper.ant.cetask.test.TestOfTheDay</groups>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build> 
+</project>

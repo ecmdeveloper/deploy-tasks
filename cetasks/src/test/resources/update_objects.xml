@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<project name="${project_name}" default="import" basedir=".">
+			
+	<taskdef name="objectstore"	 				classname="com.ecmdeveloper.ant.cetasks.ObjectStoreTask"/>
+	<taskdef name="update"	 					classname="com.ecmdeveloper.ant.cetasks.UpdateObjectStoreObjectTask"/>
+	<taskdef name="updatedocument"	 			classname="com.ecmdeveloper.ant.cetasks.DocumentTask"/>
+	
+	<taskdef name="importbackgroundsearchresult" classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchResultTask"/>
+	<taskdef name="importbackgroundsearch" 		 classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchTask"/>
+	<taskdef name="importsweepaction" 		 	 classname="com.ecmdeveloper.ant.cetasks.ImportSweepActionTask"/>
+	
+	<typedef name="stringproperty"				classname="com.ecmdeveloper.ant.cetypes.StringPropertyValue" />
+	<typedef name="propertytemplate"			classname="com.ecmdeveloper.ant.cetypes.PropertyTemplateValue" />
+	
+	<!--
+	<fail unless="environment" message="The property 'environment' is not set, use -Denvironment=&lt;value&gt; as an argument"/>
+	-->
+	<property name="environment" location="vmware"/>
+	
+	<loadproperties srcFile="${environment}.properties"/>
+
+    <tstamp>
+        <format property="TODAY_MY" pattern="yyyyMMdd-HHmmss"  locale="nl,NL" />
+    </tstamp>
+		
+	<target name="import">
+	<objectstore userName="${filenet.username}" 
+				 password="${filenet.password}" 
+				 url="${filenet.url}" 
+				 objectStoreName="${filenet.objectStoreName}"
+				 verbose="true">
+<!--				 	
+		<update parentPath="/" name="dinsdag" className="Folder" type="folder" forceCreate='false'>
+		</update>
+
+		<update parentPath="/dinsdag" name="9 uur 40" className="Folder" type="folder" forceCreate='false'>
+			<stringproperty name="FolderName" value="9 uur 42"/>
+		</update>
+
+		<updatedocument parentPath="/dinsdag" name="9 uur 32" className="Document" forceCreate='true'>
+			Quid enim de amicitia statueris utilitatis causa expetenda vides. Beatus autem esse in maximarum rerum timore nemo potest. Si quicquam extra virtutem habeatur in bonis. Uterque enim summo bono fruitur, id est voluptate. Tanta vis admonitionis inest in locis; Quid, quod homines infima fortuna, nulla spe rerum gerendarum, opifices denique delectantur historia? Nulla profecto est, quin suam vim retineat a primo ad extremum. Dolere malum est: in crucem qui agitur, beatus esse non potest.			
+			<stringproperty name="DocumentTitle" value="7 uur 25"/>
+			<stringproperty name="MimeType" value="text/plain"/>
+		</updatedocument>
+		<updatedocument parentPath="/dinsdag" name="file-${TODAY_MY}" className="Document" forceCreate='true'>
+			<stringproperty name="DocumentTitle" value="file-${TODAY_MY}"/>
+			<fileset file="/Users/ricardobelfor/git/ecm/ContentEngineTasks/content/CaseTitleGeneratorCodeModule/casetitlegenerator.jar"/>
+		</updatedocument>
+-->
+	</objectstore>			
+	</target>
+
+	<target name="dashboard">
+		
+		<echo message="Woensdag"/>
+			
+		<objectstore userName="${filenet.username}" 
+					 password="${filenet.password}" 
+					 url="${filenet.url}" 
+					 objectStoreName="${filenet.objectStoreName}"
+					 verbose="true">
+				
+			<updatedocument parentPath="/CodeModules" name="DashboardSweepCodeModule" className="CodeModule" forceCreate='true'>
+				<stringproperty name="DocumentTitle" value="DashboardSweepCodeModule"/>
+				<stringproperty name="CmAcmDeploymentVersionNumber" value="${TODAY_MY}"/>
+				<fileset file="/Users/ricardobelfor/Documents/workspace-jee-luna-dojo/GFIU Dashboard Sweep/dashboard-sweep.jar"/>
+			</updatedocument>
+				
+<!--
+		<importbackgroundsearchresult name="Cases By Status Result" symbolicName="CasesByStatusResult">
+			<propertytemplate name="CmRptObjectCount"/>
+			<propertytemplate name="GFIUC_CaseStatus"/>
+		</importbackgroundsearchresult>
+		<importbackgroundsearch	name="Cases By Status" 
+								symbolicName="CasesByStatus"
+								query="SELECT GFIUC_CaseStatus, COUNT(Id) AS CmRptObjectCount FROM [GFIUC_NewCase] GROUP BY GFIUC_CaseStatus"
+								searchResultsClass="CasesByStatusResult"
+			                    parentClass="CmRptReportingBase">
+			Queries the number of cases by status
+		</importbackgroundsearch>
+-->
+		<importsweepaction name="DashboardSweep"
+						   codeModuleName="DashboardSweepCodeModule"
+						   progId="nl.ecmpartners.dashboard.sweep.DashboardSweep"/>			
+
+	</objectstore>			
+	</target>
+	
+</project>
+    	
