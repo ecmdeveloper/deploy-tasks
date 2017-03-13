@@ -1,6 +1,7 @@
 package com.ecmdeveloper.ant.cetasks;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
 
 import com.ecmdeveloper.ant.ceactions.UpdateSweepActionAction;
 
@@ -11,13 +12,18 @@ import com.ecmdeveloper.ant.ceactions.UpdateSweepActionAction;
  */
 public class ImportSweepActionTask extends ObjectStoreObjectTask {
 
-	private UpdateSweepActionAction action = new UpdateSweepActionAction();
+	private String description;
+	private String codeModuleName;
+	private String progId;
+	private String name;
 	
 	public void execute() throws BuildException {
 		
 		try {
-			log("Running import sweep action task");
-			action.execute(getObjectStore(), this);
+			log("Running import sweep action task", Project.MSG_VERBOSE);
+			UpdateSweepActionAction action = new UpdateSweepActionAction(getObjectStore(), this);
+			action.execute(name, description, codeModuleName, progId);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new BuildException(e);
@@ -25,14 +31,25 @@ public class ImportSweepActionTask extends ObjectStoreObjectTask {
 	}
 	
 	public void setCodeModuleName(String codeModuleName) {
-		action.setCodeModuleName( codeModuleName );
+		this.codeModuleName = codeModuleName;
 	}
 
 	public void setProgId(String progId) {
-		action.setProgId(progId);
+		this.progId = progId;
 	}
 	
 	public void setName(String name) {
-		action.setName(name);
+		this.name = name;
 	}	
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void addText(String text) {
+		if ( !text.trim().isEmpty() ) {
+			description = text.trim();
+		}
+	}
+	
 }

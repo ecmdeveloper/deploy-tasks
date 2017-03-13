@@ -40,4 +40,4 @@ public class ObjectStoreNestedTask extends Task {
             this.verbosity = Project.MSG_VERBOSE;
         }
     }
-}
+ }

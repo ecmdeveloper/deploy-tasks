@@ -81,7 +81,9 @@
 -->
 		<importsweepaction name="DashboardSweep"
 						   codeModuleName="DashboardSweepCodeModule"
-						   progId="nl.ecmpartners.dashboard.sweep.DashboardSweep"/>			
+						   progId="nl.ecmpartners.dashboard.sweep.DashboardSweep">
+			Sweep that starts the background search sweeps.
+		</importsweepaction>
 
 	</objectstore>			
 	</target>
