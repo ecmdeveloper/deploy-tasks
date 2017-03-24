@@ -19,12 +19,13 @@ public class ImportBackgroundSearchResultTask extends ObjectStoreNestedTask{
 	private String name;
 	private String symbolicName;
 	private ArrayList<PropertyTemplateValue> propertyTemplateValues = new ArrayList<PropertyTemplateValue>();
-	
+	private String description;
+
 	public void execute() throws BuildException {
 
 		try {
 			UpdateBackgroundSearchResultAction action = new UpdateBackgroundSearchResultAction();
-			action.execute(this);
+			action.execute(this, description);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new BuildException(e);
@@ -65,5 +66,15 @@ public class ImportBackgroundSearchResultTask extends ObjectStoreNestedTask{
 
 	public ArrayList<PropertyTemplateValue> getPropertyTemplateValues() {
 		return propertyTemplateValues;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void addText(String text) {
+		if ( !text.trim().isEmpty() ) {
+			description = text.trim();
+		}
 	}
 }

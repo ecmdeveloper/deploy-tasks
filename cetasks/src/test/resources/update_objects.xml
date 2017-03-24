@@ -63,8 +63,8 @@
 					 url="${filenet.url}" 
 					 objectStoreName="${filenet.objectStoreName}"
 					 verbose="true">
-				
 <!--
+				
 			<updatecodemodule name="DashboardSweepCodeModule">
 				<stringproperty name="DocumentTitle" value="DashboardSweepCodeModule"/>
 				<stringproperty name="CmAcmDeploymentVersionNumber" value="${TODAY_MY}"/>
@@ -87,7 +87,6 @@
 						   progId="nl.ecmpartners.dashboard.sweep.DashboardSweep">
 			Sweep that starts the background search sweeps.
 		</importsweepaction>
--->			
 		<importsweeppolicy name="Dashboard Sweep Policy"
 						   sweepTarget="CmSweepAction"
 						   sweepActionName="DashboardSweep"
@@ -97,6 +96,7 @@
  			<timeslot weekday="5" startTime="6:17" duration="60"/>
 		</importsweeppolicy>
 			
+-->			
 
 	</objectstore>			
 	</target>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project name="cetasks">
+			
+	<taskdef name="objectstore"	 				classname="com.ecmdeveloper.ant.cetasks.ObjectStoreTask"/>
+	<taskdef name="update"	 					classname="com.ecmdeveloper.ant.cetasks.UpdateObjectStoreObjectTask"/>
+	<taskdef name="updatedocument"	 			classname="com.ecmdeveloper.ant.cetasks.DocumentTask"/>
+	<taskdef name="updatecodemodule"	 		classname="com.ecmdeveloper.ant.cetasks.CodeModuleTask"/>
+	
+	<taskdef name="importbackgroundsearchresult" classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchResultTask"/>
+	<taskdef name="importbackgroundsearch" 		 classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchTask"/>
+	<taskdef name="importsweepaction" 		 	 classname="com.ecmdeveloper.ant.cetasks.ImportSweepActionTask"/>
+	<taskdef name="importsweeppolicy" 		 	 classname="com.ecmdeveloper.ant.cetasks.ImportSweepPolicyTask"/>
+	
+	<typedef name="stringproperty"				classname="com.ecmdeveloper.ant.cetypes.StringPropertyValue" />
+	<typedef name="propertytemplate"			classname="com.ecmdeveloper.ant.cetypes.PropertyTemplateValue" />
+	<typedef name="timeslot"					classname="com.ecmdeveloper.ant.cetypes.Timeslot" />
+		
+</project>
+    	

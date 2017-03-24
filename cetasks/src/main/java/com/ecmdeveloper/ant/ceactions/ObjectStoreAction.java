@@ -45,7 +45,7 @@ public abstract class ObjectStoreAction {
 		return doQuery(type, objectStore, query);
 	}
 	
-	private <T extends IndependentObject> T doQuery(Class<T> type,
+	public <T extends IndependentObject> T doQuery(Class<T> type,
 			ObjectStore objectStore, String query) {
 		SearchScope scope = new SearchScope( objectStore );
 		IndependentObjectSet objects = scope.fetchObjects(new SearchSQL(query), null, null, Boolean.FALSE);
