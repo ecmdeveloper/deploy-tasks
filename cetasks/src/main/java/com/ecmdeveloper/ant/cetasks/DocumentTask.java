@@ -92,6 +92,10 @@ public class DocumentTask extends ObjectStoreNestedTask {
 		}
 	}
 
+	protected String getDocumentId() {
+		return document.get_Id().toString();
+	}
+
 	private Document getReservation(Document document) {
 		VersionSeries versionSeries = document.get_VersionSeries(); 
 		versionSeries.fetchProperties( new String[]  { PropertyNames.CURRENT_VERSION } );

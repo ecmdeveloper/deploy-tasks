@@ -4,6 +4,7 @@
 	<taskdef name="objectstore"	 				classname="com.ecmdeveloper.ant.cetasks.ObjectStoreTask"/>
 	<taskdef name="update"	 					classname="com.ecmdeveloper.ant.cetasks.UpdateObjectStoreObjectTask"/>
 	<taskdef name="updatedocument"	 			classname="com.ecmdeveloper.ant.cetasks.DocumentTask"/>
+	<taskdef name="updatecodemodule"	 		classname="com.ecmdeveloper.ant.cetasks.CodeModuleTask"/>
 	
 	<taskdef name="importbackgroundsearchresult" classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchResultTask"/>
 	<taskdef name="importbackgroundsearch" 		 classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchTask"/>
@@ -64,11 +65,11 @@
 					 verbose="true">
 				
 <!--
-			<updatedocument parentPath="/CodeModules" name="DashboardSweepCodeModule" className="CodeModule" forceCreate='true'>
+			<updatecodemodule name="DashboardSweepCodeModule">
 				<stringproperty name="DocumentTitle" value="DashboardSweepCodeModule"/>
 				<stringproperty name="CmAcmDeploymentVersionNumber" value="${TODAY_MY}"/>
 				<fileset file="/Users/ricardobelfor/Documents/workspace-jee-luna-dojo/GFIU Dashboard Sweep/dashboard-sweep.jar"/>
-			</updatedocument>
+			</updatecodemodule>
 				
 		<importbackgroundsearchresult name="Cases By Status Result" symbolicName="CasesByStatusResult">
 			<propertytemplate name="CmRptObjectCount"/>
@@ -86,15 +87,16 @@
 						   progId="nl.ecmpartners.dashboard.sweep.DashboardSweep">
 			Sweep that starts the background search sweeps.
 		</importsweepaction>
--->
-			
+-->			
 		<importsweeppolicy name="Dashboard Sweep Policy"
 						   sweepTarget="CmSweepAction"
 						   sweepActionName="DashboardSweep"
 						   filterExpression="name='DashboardSweep'">
 			Policy that controls the dashboard sweep.
  			<timeslot weekday="0" startTime="1:30" duration="60"/>
+ 			<timeslot weekday="5" startTime="6:17" duration="60"/>
 		</importsweeppolicy>
+			
 
 	</objectstore>			
 	</target>
