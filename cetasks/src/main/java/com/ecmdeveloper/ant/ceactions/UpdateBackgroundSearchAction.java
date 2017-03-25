@@ -4,6 +4,7 @@
 package com.ecmdeveloper.ant.ceactions;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
 
 import com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchTask;
 import com.filenet.api.admin.ClassDefinition;
@@ -15,6 +16,7 @@ import com.filenet.api.collection.PropertyDefinitionList;
 import com.filenet.api.constants.RefreshMode;
 import com.filenet.api.core.Factory;
 import com.filenet.api.core.ObjectStore;
+import com.filenet.api.sweep.CmBackgroundSearch;
 
 /**
  * @author Ricardo Belfor
@@ -22,34 +24,48 @@ import com.filenet.api.core.ObjectStore;
  */
 public class UpdateBackgroundSearchAction extends ClassDefinitionAction {
 
+	private ObjectStore objectStore;
+	private Task task;
+
+	public UpdateBackgroundSearchAction(ObjectStore objectStore, Task task) {
+		this.objectStore = objectStore;
+		this.task = task;
+	}
+	
+	
 	@SuppressWarnings("unchecked")
-	public void execute(ImportBackgroundSearchTask task) {
+	public void execute(String name, String symbolicName, String parentClass, String searchResultsClass, String query, String description) {
 
-		ObjectStore objectStore = task.getObjectStore();
+		ClassDefinition classDefinition = getBySymbolicName(symbolicName, objectStore);
+
+		if ( classDefinition == null ) {
+			task.log("Creating background search '" + name + "'");
+			ClassDefinition parentClassDefinition = Factory.ClassDefinition.fetchInstance(objectStore, parentClass, null);
+			classDefinition = parentClassDefinition.createSubclass();
+			classDefinition.set_SymbolicName( symbolicName );
+			
+			ClassDefinition searchResultClass = Factory.ClassDefinition.fetchInstance(objectStore, searchResultsClass, null);
+			PropertyDefinitionObject searchResultsDefinition = (PropertyDefinitionObject) getPropertyDefinition(classDefinition.get_PropertyDefinitions(), "SearchResults");
+			searchResultsDefinition.set_RequiredClassId( searchResultClass.get_Id() );
+
+		} else {
+			task.log("Updating background search '" + name + "'");
+		}
 		
-		ClassDefinition parentClassDefinition = Factory.ClassDefinition.fetchInstance(objectStore, task.getParentClass(), null);
-		ClassDefinition classDefinition = parentClassDefinition.createSubclass();
-
-		LocalizedString localizedString = createLocalizedString(task.getName(),  task.getObjectStore().get_LocaleName() );
+		LocalizedString localizedString = createLocalizedString(name,  objectStore.get_LocaleName() );
 		classDefinition.set_DisplayNames(Factory.LocalizedString.createList());
 		classDefinition.get_DisplayNames().add(localizedString);
 
-		classDefinition.set_SymbolicName( task.getSymbolicName() );
-
-		if ( task.getDescription() != null) {
-			LocalizedString description = createLocalizedString(task.getDescription(), task.getObjectStore().get_LocaleName() );
+		if ( description != null) {
+			LocalizedString descriptionString = createLocalizedString(description, objectStore.get_LocaleName() );
 			classDefinition.set_DescriptiveTexts( Factory.LocalizedString.createList() );
-			classDefinition.get_DescriptiveTexts().add(description);
+			classDefinition.get_DescriptiveTexts().add(descriptionString);
 		}
 
 		PropertyDefinitionList propertyDefinitions = classDefinition.get_PropertyDefinitions();
 		PropertyDefinitionString searchExpressionDefintion = (PropertyDefinitionString) getPropertyDefinition(propertyDefinitions, "SearchExpression");
-		searchExpressionDefintion.set_PropertyDefaultString( task.getQuery() );
-	
-		ClassDefinition searchResultClass = Factory.ClassDefinition.fetchInstance(objectStore, task.getSearchResultsClass(), null);
-		PropertyDefinitionObject searchResultsDefinition = (PropertyDefinitionObject) getPropertyDefinition(propertyDefinitions, "SearchResults");
-		searchResultsDefinition.set_RequiredClassId( searchResultClass.get_Id() );
-		
+		searchExpressionDefintion.set_PropertyDefaultString( query );
+			
 /*
 		// Create property template for a DateTime custom property to use for the search parameter named StartDate.
 		String strTemplateName = "StartDate";

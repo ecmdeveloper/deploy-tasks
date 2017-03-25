@@ -23,19 +23,12 @@ public class ImportBackgroundSearchTask extends ObjectStoreNestedTask {
 	public void execute() throws BuildException {
 
 		try {
-			UpdateBackgroundSearchAction action = new UpdateBackgroundSearchAction();
-			action.execute(this);
+			UpdateBackgroundSearchAction action = new UpdateBackgroundSearchAction( getObjectStore(), this);
+			action.execute(name, symbolicName, parentClass, searchResultsClass, query, description);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new BuildException(e);
 		}
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
 	}
 
 	/**
@@ -46,24 +39,10 @@ public class ImportBackgroundSearchTask extends ObjectStoreNestedTask {
 	}
 
 	/**
-	 * @return the symbolicName
-	 */
-	public String getSymbolicName() {
-		return symbolicName;
-	}
-
-	/**
 	 * @param symbolicName the symbolicName to set
 	 */
 	public void setSymbolicName(String symbolicName) {
 		this.symbolicName = symbolicName;
-	}
-
-	/**
-	 * @return the searchResultsClass
-	 */
-	public String getSearchResultsClass() {
-		return searchResultsClass;
 	}
 
 	/**
@@ -74,21 +53,10 @@ public class ImportBackgroundSearchTask extends ObjectStoreNestedTask {
 	}
 
 	/**
-	 * @return the query
-	 */
-	public String getQuery() {
-		return query;
-	}
-
-	/**
 	 * @param query the query to set
 	 */
 	public void setQuery(String query) {
 		this.query = query;
-	}
-
-	public String getDescription() {
-		return description;
 	}
 
 	public void setDescription(String description) {
@@ -99,13 +67,6 @@ public class ImportBackgroundSearchTask extends ObjectStoreNestedTask {
 		if (!text.trim().isEmpty() ) {
 			this.description = text.trim();
 		}
-	}
-
-	/**
-	 * @return the parentClass
-	 */
-	public String getParentClass() {
-		return parentClass;
 	}
 
 	/**
