@@ -1,12 +1,10 @@
 package com.ecmdeveloper.ant.cetasks;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 
-import com.ecmdeveloper.ant.ceactions.UpdateSweepActionAction;
 import com.ecmdeveloper.ant.ceactions.UpdateSweepPolicyAction;
 import com.ecmdeveloper.ant.cetypes.Timeslot;
 
@@ -22,6 +20,7 @@ public class ImportSweepPolicyTask extends ObjectStoreObjectTask {
 	private String sweepActionName;
 	private String filterExpression; 
 	private String description;
+	private Integer interSweepDelay;
 	private ArrayList<Timeslot> timeslots = new ArrayList<Timeslot>();
 	
 	public void execute() throws BuildException {
@@ -29,7 +28,7 @@ public class ImportSweepPolicyTask extends ObjectStoreObjectTask {
 		try {
 			log("Running import sweep action task", Project.MSG_VERBOSE);
 			UpdateSweepPolicyAction action = new UpdateSweepPolicyAction(getObjectStore(), this);
-			action.execute(name, sweepTarget, sweepActionName, filterExpression, description, timeslots);
+			action.execute(name, sweepTarget, sweepActionName, filterExpression, description, interSweepDelay, timeslots);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new BuildException(e);
@@ -64,5 +63,9 @@ public class ImportSweepPolicyTask extends ObjectStoreObjectTask {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void setInterSweepDelay(Integer interSweepDelay) {
+		this.interSweepDelay = interSweepDelay;
 	}
 }

@@ -37,7 +37,7 @@ public class UpdateSweepPolicyAction extends ObjectStoreAction {
 		this.task = task;
 	}
 
-	public void execute(String name, String sweepTarget, String sweepActionName, String filterExpression, String description, Collection<Timeslot> timeslots) {
+	public void execute(String name, String sweepTarget, String sweepActionName, String filterExpression, String description, Integer interSweepDelay, Collection<Timeslot> timeslots) {
 
 		CmCustomSweepPolicy sweepPolicy = getByDisplayName(name, CmCustomSweepPolicy.class, objectStore);
 		if ( sweepPolicy == null) {
@@ -59,11 +59,13 @@ public class UpdateSweepPolicyAction extends ObjectStoreAction {
 		sweepPolicy.set_FilterExpression(filterExpression);
 		sweepPolicy.save(RefreshMode.REFRESH);
 		
+		CmPolicyControlledSweep controlledSweep = getPolicyControlledSweep(sweepPolicy);
+
 		if ( timeslots != null && !timeslots.isEmpty() ) {
-			CmPolicyControlledSweep controlledSweep = getPolicyControlledSweep(sweepPolicy);
 			controlledSweep.set_SweepTimeslots( getTimeslotList(timeslots) );
-			controlledSweep.save(RefreshMode.NO_REFRESH);
 		}
+		controlledSweep.set_InterSweepDelay(interSweepDelay);
+		controlledSweep.save(RefreshMode.NO_REFRESH);
 	}
 
 	private CmPolicyControlledSweep getPolicyControlledSweep(CmCustomSweepPolicy sweepPolicy) {
