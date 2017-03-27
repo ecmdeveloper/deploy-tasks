@@ -43,8 +43,11 @@ public class UpdateCodeModuleActionsAction {
 		task.log("Updating Code Module Actions");
 
 		CodeModule codeModule = Factory.CodeModule.fetchInstance(objectStore, new Id(codeModuleId), null);
+		task.log("\tNew Code Module version is " + codeModule.get_MajorVersionNumber() + "." + codeModule.get_MinorVersionNumber() );
+		
 		for (Action  action : getCodeModuleActions(codeModule) ) 
 		{
+			task.log("\tUpdating action '" + action.get_DisplayName() + "'");
 			action.set_CodeModule(codeModule);
 			action.save(RefreshMode.NO_REFRESH);
 		}

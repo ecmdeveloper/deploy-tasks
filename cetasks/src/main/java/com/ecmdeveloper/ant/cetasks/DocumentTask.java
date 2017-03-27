@@ -80,6 +80,11 @@ public class DocumentTask extends ObjectStoreNestedTask {
 			
 			document.save(RefreshMode.REFRESH);
 			
+			if ( checkin) {
+				log("\tNew document version is " + document.get_MajorVersionNumber() + "." + document.get_MinorVersionNumber() );
+			}
+
+			
 			if ( newDocument && parentPath != null) {
 				log("filing document to '" + parentPath + "'");
 				Folder folder = Factory.Folder.fetchInstance(getObjectStore(), parentPath, null);
