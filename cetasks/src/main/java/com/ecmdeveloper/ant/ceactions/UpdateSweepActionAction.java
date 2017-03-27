@@ -35,6 +35,8 @@ public class UpdateSweepActionAction extends ObjectStoreAction {
 		if ( codeModule == null) {
 			throw new BuildException("Code Module '" + codeModuleName + "' not found");
 		}
+		codeModule.refresh();
+		task.log("\tCode Module version is " + codeModule.get_MajorVersionNumber() + "." + codeModule.get_MinorVersionNumber() );
 		
 		task.log("Fetching sweep action '" + name + "'", Project.MSG_VERBOSE);
 
