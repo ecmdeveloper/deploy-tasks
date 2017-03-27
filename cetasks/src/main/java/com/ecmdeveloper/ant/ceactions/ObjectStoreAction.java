@@ -37,8 +37,8 @@ public abstract class ObjectStoreAction {
 	public <T extends IndependentObject> T getByName(String name, Class<T> type, String filter, ObjectStore objectStore) {
 
 		String queryFormat = "SELECT [This] FROM [{0}] WHERE ([DocumentTitle] = ''{1}'')";
-		if ( filter.isEmpty() ) {
-			queryFormat += "AND ( " + filter + " )";
+		if ( !filter.isEmpty() ) {
+			queryFormat += " AND ( " + filter + " )";
 		}
 		
 		String query = MessageFormat.format(queryFormat, type.getSimpleName(), name );

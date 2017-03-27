@@ -29,12 +29,17 @@ public class UpdateBackgroundSearchResultAction extends ClassDefinitionAction {
 	public void execute(ImportBackgroundSearchResultTask task, String description) {
 		
 		ObjectStore objectStore = task.getObjectStore();
-		
+		boolean newDefinition;
 		ClassDefinition classDefinition = getBySymbolicName(task.getSymbolicName(), objectStore);
 		if ( classDefinition == null ) {
+			task.log("Creating Background Search Result Class '" +  task.getName() + "'");
 			ClassDefinition parentClassDefinition = Factory.ClassDefinition.fetchInstance(objectStore, "CmAbstractSearchResult", null);
 			classDefinition = parentClassDefinition.createSubclass();
 			classDefinition.set_SymbolicName( task.getSymbolicName() );
+			newDefinition = true;
+		} else {
+			task.log("Updating Background Search Result Class '" +  task.getName() + "'");
+			newDefinition = false;
 		}
 
 		String localeName = task.getObjectStore().get_LocaleName();
@@ -67,19 +72,19 @@ public class UpdateBackgroundSearchResultAction extends ClassDefinitionAction {
 		objPropTemplate.save(RefreshMode.REFRESH);
 */
 		ArrayList<PropertyTemplateValue> propertyTemplateValues = task.getPropertyTemplateValues();
-		addPropertyDefinitions(objectStore, classDefinition, propertyTemplateValues);
+		addPropertyDefinitions(objectStore, classDefinition, propertyTemplateValues, newDefinition);
 		classDefinition.save(RefreshMode.REFRESH);		
 	}
 
 	private void addPropertyDefinitions(ObjectStore objectStore,
 			ClassDefinition classDefinition,
-			ArrayList<PropertyTemplateValue> propertyTemplateValues) {
+			ArrayList<PropertyTemplateValue> propertyTemplateValues, boolean newDefinition) {
 		PropertyDefinitionList propertyDefinitionList = classDefinition.get_PropertyDefinitions(); 
 
 		for ( PropertyTemplateValue propertTemplateValue : propertyTemplateValues ) {
 			
 			String name = propertTemplateValue.getName();
-			if ( containsProperty(propertyDefinitionList, name) ) {
+			if ( !newDefinition && containsProperty(propertyDefinitionList, name) ) {
 				continue;
 			};			
 			
