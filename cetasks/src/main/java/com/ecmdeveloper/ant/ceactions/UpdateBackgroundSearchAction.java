@@ -3,20 +3,22 @@
  */
 package com.ecmdeveloper.ant.ceactions;
 
+import java.util.List;
+
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
-import com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchTask;
+import com.ecmdeveioper.ant.utils.PropertyDefinitionUtils;
 import com.filenet.api.admin.ClassDefinition;
 import com.filenet.api.admin.LocalizedString;
 import com.filenet.api.admin.PropertyDefinition;
 import com.filenet.api.admin.PropertyDefinitionObject;
 import com.filenet.api.admin.PropertyDefinitionString;
+import com.filenet.api.admin.PropertyTemplate;
 import com.filenet.api.collection.PropertyDefinitionList;
 import com.filenet.api.constants.RefreshMode;
 import com.filenet.api.core.Factory;
 import com.filenet.api.core.ObjectStore;
-import com.filenet.api.sweep.CmBackgroundSearch;
 
 /**
  * @author Ricardo Belfor
@@ -34,7 +36,7 @@ public class UpdateBackgroundSearchAction extends ClassDefinitionAction {
 	
 	
 	@SuppressWarnings("unchecked")
-	public void execute(String name, String symbolicName, String parentClass, String searchResultsClass, String query, String description) {
+	public void execute(String name, String symbolicName, String parentClass, String searchResultsClass, String query, String description, List<String> properties) {
 
 		ClassDefinition classDefinition = getBySymbolicName(symbolicName, objectStore);
 
@@ -65,32 +67,15 @@ public class UpdateBackgroundSearchAction extends ClassDefinitionAction {
 		PropertyDefinitionList propertyDefinitions = classDefinition.get_PropertyDefinitions();
 		PropertyDefinitionString searchExpressionDefintion = (PropertyDefinitionString) getPropertyDefinition(propertyDefinitions, "SearchExpression");
 		searchExpressionDefintion.set_PropertyDefaultString( query );
-			
-/*
-		// Create property template for a DateTime custom property to use for the search parameter named StartDate.
-		String strTemplateName = "StartDate";
-		PropertyTemplateDateTime objPropTemplate = Factory.PropertyTemplateDateTime.createInstance(objectStore);
 
-		// Set cardinality of properties that will be created from the property template.
-		objPropTemplate.set_Cardinality(Cardinality.SINGLE);
-
-		// Define locale for template.
-		LocalizedString objLocStrPT = Factory.LocalizedString.createInstance();
-		objLocStrPT.set_LocalizedText(strTemplateName);
-		objLocStrPT.set_LocaleName(objectStore.get_LocaleName());
-
-		// Set template display name.
-		objPropTemplate.set_DisplayNames(Factory.LocalizedString.createList());
-		objPropTemplate.get_DisplayNames().add(objLocStrPT);
-
-		// Save new property template to the server.
-		objPropTemplate.save(RefreshMode.REFRESH);
-		// Create property definition from property template.
-		PropertyDefinitionDateTime objPropDefDT = (PropertyDefinitionDateTime) objPropTemplate.createClassProperty();
-
-		// Create custom property by adding the new property definition to the CmBackgroundSearch subclass definition.
-		objPropDefs.add(objPropDefDT);
-*/
+		for (String property : properties) {
+			if ( !PropertyDefinitionUtils.containsProperty(propertyDefinitions, property) ) {
+				task.log("\tAdding search parameter '" + property + "'");
+				PropertyTemplate propertyTemplate = getBySymbolicName(property, PropertyTemplate.class , objectStore);
+				PropertyDefinition propertyDefinition = propertyTemplate.createClassProperty();
+				propertyDefinitions.add(propertyDefinition);
+			}
+		}
 		classDefinition.save(RefreshMode.REFRESH);	
 	}
 

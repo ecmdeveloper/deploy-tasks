@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import org.apache.tools.ant.BuildException;
 
+import com.ecmdeveioper.ant.utils.PropertyDefinitionUtils;
 import com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchResultTask;
 import com.ecmdeveloper.ant.cetypes.PropertyTemplateValue;
 import com.filenet.api.admin.ClassDefinition;
@@ -17,6 +18,7 @@ import com.filenet.api.constants.PropertyNames;
 import com.filenet.api.constants.RefreshMode;
 import com.filenet.api.core.Factory;
 import com.filenet.api.core.ObjectStore;
+import com.filenet.api.exception.EngineRuntimeException;
 import com.filenet.api.property.FilterElement;
 import com.filenet.api.property.PropertyFilter;
 import com.filenet.api.query.RepositoryRow;
@@ -39,7 +41,14 @@ public class UpdateBackgroundSearchResultAction extends ClassDefinitionAction {
 			newDefinition = true;
 		} else {
 			task.log("Updating Background Search Result Class '" +  task.getName() + "'");
+			
+			classDefinition = Factory.ClassDefinition.fetchInstance(objectStore, classDefinition.get_Id(), null);
 			newDefinition = false;
+//			PropertyFilter pf = new PropertyFilter();
+//			pf.addIncludeProperty(2, null, true, "SymbolicName", null );
+//			pf.addIncludeProperty(0, null, null, "PropertyDefinitions", null);
+//
+//			classDefinition.refresh(pf);
 		}
 
 		String localeName = task.getObjectStore().get_LocaleName();
@@ -84,7 +93,7 @@ public class UpdateBackgroundSearchResultAction extends ClassDefinitionAction {
 		for ( PropertyTemplateValue propertTemplateValue : propertyTemplateValues ) {
 			
 			String name = propertTemplateValue.getName();
-			if ( !newDefinition && containsProperty(propertyDefinitionList, name) ) {
+			if ( !newDefinition && PropertyDefinitionUtils.containsProperty(propertyDefinitionList, name) ) {
 				continue;
 			};			
 			
@@ -99,19 +108,6 @@ public class UpdateBackgroundSearchResultAction extends ClassDefinitionAction {
 		}
 	}
 
-	private boolean containsProperty(PropertyDefinitionList propertyDefinition,
-			String name) {
-		Iterator<PropertyDefinition> iterator = propertyDefinition.iterator();
-		boolean found = false;
-		while (iterator.hasNext()) {
-			PropertyDefinition p = iterator.next();
-			if ( p.get_SymbolicName().equals(name ) ) {
-				found = true;
-				break;
-			}
-		}
-		return found;
-	}
 
 	public PropertyTemplate getPropertyTemplate(String name, ObjectStore objectStore ) 
 	{
@@ -130,5 +126,4 @@ public class UpdateBackgroundSearchResultAction extends ClassDefinitionAction {
 		RepositoryRow row = (RepositoryRow) iterator.next();
 		return (PropertyTemplate) row.getProperties().getObjectValue("This");
 	}
-	
 }

@@ -11,6 +11,8 @@
 	<taskdef name="importsweepaction" 		 	 classname="com.ecmdeveloper.ant.cetasks.ImportSweepActionTask"/>
 	<taskdef name="importsweeppolicy" 		 	 classname="com.ecmdeveloper.ant.cetasks.ImportSweepPolicyTask"/>
 	
+	<taskdef name="importdatetimepropertytemplate"	classname="com.ecmdeveloper.ant.cetasks.propertytemplate.ImportDateTimePropertyTemplateTask"/>
+		
 	<typedef name="stringproperty"				classname="com.ecmdeveloper.ant.cetypes.StringPropertyValue" />
 	<typedef name="propertytemplate"			classname="com.ecmdeveloper.ant.cetypes.PropertyTemplateValue" />
 	<typedef name="timeslot"					classname="com.ecmdeveloper.ant.cetypes.Timeslot" />

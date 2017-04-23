@@ -3,9 +3,13 @@
  */
 package com.ecmdeveloper.ant.cetasks;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.tools.ant.BuildException;
 
 import com.ecmdeveloper.ant.ceactions.UpdateBackgroundSearchAction;
+import com.ecmdeveloper.ant.cetypes.PropertyTemplateValue;
 
 /**
  * @author Ricardo Belfor
@@ -19,12 +23,13 @@ public class ImportBackgroundSearchTask extends ObjectStoreNestedTask {
 	private String query;
 	private String description;
 	private String parentClass = "CmBackgroundSearch";
+	private List<String> properties = new ArrayList<String>();
 	
 	public void execute() throws BuildException {
 
 		try {
 			UpdateBackgroundSearchAction action = new UpdateBackgroundSearchAction( getObjectStore(), this);
-			action.execute(name, symbolicName, parentClass, searchResultsClass, query, description);
+			action.execute(name, symbolicName, parentClass, searchResultsClass, query, description, properties);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new BuildException(e);
@@ -74,5 +79,9 @@ public class ImportBackgroundSearchTask extends ObjectStoreNestedTask {
 	 */
 	public void setParentClass(String parentClass) {
 		this.parentClass = parentClass;
+	}
+	
+	public void addConfigured(PropertyTemplateValue propertyTemplateValue) {
+		properties.add(propertyTemplateValue.getName());
 	}
 }
