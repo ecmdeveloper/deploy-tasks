@@ -16,6 +16,7 @@
 	<typedef name="stringproperty"				classname="com.ecmdeveloper.ant.cetypes.StringPropertyValue" />
 	<typedef name="propertytemplate"			classname="com.ecmdeveloper.ant.cetypes.PropertyTemplateValue" />
 	<typedef name="timeslot"					classname="com.ecmdeveloper.ant.cetypes.Timeslot" />
-		
+	<typedef name="permission"					classname="com.ecmdeveloper.ant.cetypes.PermissionValue" />
+	
 </project>
     	
