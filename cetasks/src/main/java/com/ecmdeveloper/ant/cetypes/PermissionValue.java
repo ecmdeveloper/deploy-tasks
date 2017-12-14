@@ -3,7 +3,7 @@ package com.ecmdeveloper.ant.cetypes;
 
 public class PermissionValue {
 
-	private Integer inheritableDepth;
+	private Integer inheritableDepth = 0;
 	private Integer accessMask;
 	private String 	granteeName;
 	

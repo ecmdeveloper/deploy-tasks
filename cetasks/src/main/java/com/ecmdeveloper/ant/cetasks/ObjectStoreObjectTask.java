@@ -51,6 +51,8 @@ public class ObjectStoreObjectTask extends ObjectStoreNestedTask {
 				engineObjects.add( fetchFolderByPath(effectivePath) );
 			} else if ( "document".equalsIgnoreCase(type) ) {
 				
+			} else if ("customobject".equals(type) ) {
+				
 			}
 		}
 		
@@ -101,7 +103,11 @@ public class ObjectStoreObjectTask extends ObjectStoreNestedTask {
 		if ( path != null) {
 			return path;
 		} else if ( parentPath != null && name != null ) {
-			return MessageFormat.format("{0}/{1}", parentPath, name);
+			if ( parentPath.endsWith("/") ) {
+				return MessageFormat.format("{0}{1}", parentPath, name);
+			} else {
+				return MessageFormat.format("{0}/{1}", parentPath, name);
+			}
 		} else {
 			return null;
 		}

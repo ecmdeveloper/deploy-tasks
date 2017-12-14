@@ -158,4 +158,10 @@ public class ObjectStoreTask extends Task {
 		
 		tasks.add(objectStoreNestedTask);
 	}
+
+	public void addConfiguredUpdatecustomobject(CustomObjectTask objectStoreNestedTask) {
+		log("Adding task " + objectStoreNestedTask.getTaskName() );
+		
+		tasks.add(objectStoreNestedTask);
+	}
 }

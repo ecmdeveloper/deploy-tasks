@@ -5,6 +5,7 @@
 	<taskdef name="update"	 					classname="com.ecmdeveloper.ant.cetasks.UpdateObjectStoreObjectTask"/>
 	<taskdef name="updatedocument"	 			classname="com.ecmdeveloper.ant.cetasks.DocumentTask"/>
 	<taskdef name="updatecodemodule"	 		classname="com.ecmdeveloper.ant.cetasks.CodeModuleTask"/>
+	<taskdef name="updatecustomobject"	 		classname="com.ecmdeveloper.ant.cetasks.CustomObjectTask"/>
 	
 	<taskdef name="importbackgroundsearchresult" classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchResultTask"/>
 	<taskdef name="importbackgroundsearch" 		 classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchTask"/>
@@ -14,6 +15,7 @@
 	<taskdef name="importdatetimepropertytemplate"	classname="com.ecmdeveloper.ant.cetasks.propertytemplate.ImportDateTimePropertyTemplateTask"/>
 		
 	<typedef name="stringproperty"				classname="com.ecmdeveloper.ant.cetypes.StringPropertyValue" />
+	<typedef name="doubleproperty"				classname="com.ecmdeveloper.ant.cetypes.DoublePropertyValue" />
 	<typedef name="propertytemplate"			classname="com.ecmdeveloper.ant.cetypes.PropertyTemplateValue" />
 	<typedef name="timeslot"					classname="com.ecmdeveloper.ant.cetypes.Timeslot" />
 	<typedef name="permission"					classname="com.ecmdeveloper.ant.cetypes.PermissionValue" />

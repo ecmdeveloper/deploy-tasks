@@ -11,7 +11,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.types.FileSet;
 
 import com.ecmdeveloper.ant.ceactions.UpdateDocumentContentAction;
-import com.ecmdeveloper.ant.ceactions.UpdateObjectStoreObjectAction;
+import com.ecmdeveloper.ant.ceactions.UpdatePropertiesAction;
 import com.ecmdeveloper.ant.cetypes.PropertyValue;
 import com.filenet.api.constants.AutoClassify;
 import com.filenet.api.constants.AutoUniqueName;
@@ -43,7 +43,7 @@ public class DocumentTask extends ObjectStoreNestedTask {
 	private String name;
 	private Boolean forceCreate = false;
 	
-	private UpdateObjectStoreObjectAction updateObjectStoreObjectAction = new UpdateObjectStoreObjectAction();
+	private UpdatePropertiesAction updateObjectStoreObjectAction = new UpdatePropertiesAction();
 	private UpdateDocumentContentAction updateDocumentContentAction = new UpdateDocumentContentAction();
 	private Document document;
 	

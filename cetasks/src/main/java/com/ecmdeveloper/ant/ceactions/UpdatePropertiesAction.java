@@ -15,7 +15,7 @@ import com.filenet.api.core.IndependentlyPersistableObject;
  * @author Ricardo Belfor
  *
  */
-public class UpdateObjectStoreObjectAction {
+public class UpdatePropertiesAction {
 
 	private ArrayList<PropertyValue> propertyValues = new ArrayList<PropertyValue>();
 	
