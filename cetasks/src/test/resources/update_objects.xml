@@ -33,10 +33,10 @@
 				 url="${filenet.url}" 
 				 objectStoreName="${filenet.objectStoreName}"
 				 verbose="true">
-<!--				 	
-		<update parentPath="/" name="dinsdag" className="Folder" type="folder" forceCreate='false'>
-		</update>
 
+		<update parentPath="/dinsdag" name="woensdag" className="Folder" type="folder" forceCreate='true'>
+		</update>
+<!--
 		<update parentPath="/dinsdag" name="9 uur 40" className="Folder" type="folder" forceCreate='false'>
 			<stringproperty name="FolderName" value="9 uur 42"/>
 		</update>

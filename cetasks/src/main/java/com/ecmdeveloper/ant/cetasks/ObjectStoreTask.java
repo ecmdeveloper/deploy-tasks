@@ -164,4 +164,8 @@ public class ObjectStoreTask extends Task {
 		
 		tasks.add(objectStoreNestedTask);
 	}
+	
+	public void addConfiguredChoicelist(ChoiceListTask task) {
+		tasks.add(task);
+	}
 }

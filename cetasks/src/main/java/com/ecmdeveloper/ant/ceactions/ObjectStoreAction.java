@@ -10,6 +10,7 @@ import com.filenet.api.core.IndependentObject;
 import com.filenet.api.core.ObjectStore;
 import com.filenet.api.query.SearchSQL;
 import com.filenet.api.query.SearchScope;
+import com.filenet.api.util.Id;
 
 public abstract class ObjectStoreAction {
 
@@ -39,6 +40,12 @@ public abstract class ObjectStoreAction {
 		return doQuery(type, objectStore, query);
 	}
 
+	public <T extends IndependentObject> T getById(Id name, Class<T> type, ObjectStore objectStore) {
+		String queryFormat = "SELECT [This] FROM [{0}] WHERE ([Id] = ''{1}'')";
+		String query = MessageFormat.format(queryFormat, type.getSimpleName(), name );
+		return doQuery(type, objectStore, query);
+	}
+	
 	public <T extends IndependentObject> T getBySymbolicName(String name, Class<T> type, ObjectStore objectStore) {
 		final String queryFormat = "SELECT [This] FROM [{0}] WHERE ([SymbolicName] = ''{1}'')";
 		final String query = MessageFormat.format(queryFormat, type.getSimpleName(), name );

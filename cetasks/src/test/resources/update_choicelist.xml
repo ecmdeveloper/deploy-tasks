@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<project name="${project_name}" default="import" basedir=".">
+			
+	<include file="../../../cetasks.xml"/>
+	<property name="environment" location="vmware"/>
+	<loadproperties srcFile="${environment}.properties"/>
+
+	<target name="import">
+		<objectstore userName="${filenet.username}" 
+					 password="${filenet.password}" 
+					 url="${filenet.url}" 
+					 objectStoreName="${filenet.objectStoreName}"
+					 verbose="true">
+			<updatechoicelist displayName="Days of the week" 
+							  id="{5bc1698a-2923-40ec-93e5-019abce35d89}"
+							  dataType="String">
+				This is a list of the 7 days of the week.
+				<choiceitem stringValue="Sunday"/>
+				<choiceitem stringValue="Monday"/>
+				<choiceitem stringValue="Tuesday"/>
+				<choiceitem stringValue="Wednesday"/>
+				<choiceitem stringValue="Thursday"/>
+				<choiceitem stringValue="Friday"/>
+				<choiceitem stringValue="Saturday"/>
+			</updatechoicelist>
+		</objectstore>			
+	</target>
+
+</project>
+    	
