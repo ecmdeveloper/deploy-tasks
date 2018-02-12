@@ -3,11 +3,14 @@ package com.ecmdeveloper.ant.ceactions;
 import java.text.MessageFormat;
 import java.util.Iterator;
 
+import org.apache.tools.ant.BuildException;
+
 import com.filenet.api.admin.LocalizedString;
 import com.filenet.api.collection.IndependentObjectSet;
 import com.filenet.api.core.Factory;
 import com.filenet.api.core.IndependentObject;
 import com.filenet.api.core.ObjectStore;
+import com.filenet.api.events.ClassSubscription;
 import com.filenet.api.query.SearchSQL;
 import com.filenet.api.query.SearchScope;
 import com.filenet.api.util.Id;
@@ -71,5 +74,17 @@ public abstract class ObjectStoreAction {
 		localizedString.set_LocalizedText( name );
 		localizedString.set_LocaleName(localeName);
 		return localizedString;
-	}	
+	}
+	
+	protected <T extends IndependentObject> T getByIdOrDisplayName(Class<T> type, Id id, String displayName, ObjectStore objectStore) {
+		T independentObject = null;
+		if ( id != null ) {
+			independentObject = getById(id, type, objectStore);
+		} else if ( displayName != null ) {
+			independentObject = getByDisplayName(displayName, type, objectStore);
+		} else {
+			throw new BuildException(type.getName() + " must be identified by id or display name");
+		}
+		return independentObject;
+	}
 }

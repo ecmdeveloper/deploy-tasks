@@ -8,6 +8,9 @@
 	<taskdef name="updatecustomobject"	 		classname="com.ecmdeveloper.ant.cetasks.CustomObjectTask"/>
 	<taskdef name="updatechoicelist"	 		classname="com.ecmdeveloper.ant.cetasks.ChoiceListTask"/>
 	<taskdef name="classdefinition"	 			classname="com.ecmdeveloper.ant.cetasks.ClassDefinitionTask"/>
+	<taskdef name="classdefinition"	 			classname="com.ecmdeveloper.ant.cetasks.ClassDefinitionTask"/>
+	<taskdef name="classsubscription"	 		classname="com.ecmdeveloper.ant.cetasks.events.ClassSubscriptionTask"/>
+	<taskdef name="eventaction"	 				classname="com.ecmdeveloper.ant.cetasks.events.EventActionTask"/>
 	
 	<taskdef name="importbackgroundsearchresult" classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchResultTask"/>
 	<taskdef name="importbackgroundsearch" 		 classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchTask"/>
@@ -25,6 +28,7 @@
 	<typedef name="timeslot"					classname="com.ecmdeveloper.ant.cetypes.Timeslot" />
 	<typedef name="permission"					classname="com.ecmdeveloper.ant.cetypes.PermissionValue" />
 	<typedef name="choiceitem"					classname="com.ecmdeveloper.ant.cetypes.ChoiceItemValue" />
+	<typedef name="event"						classname="com.ecmdeveloper.ant.cetypes.Event" />
 	
 	<typedef name="stringpropertydefinition"	classname="com.ecmdeveloper.ant.cetypes.propertydefs.StringPropertyDefinition" />
 	<typedef name="objectpropertydefinition"	classname="com.ecmdeveloper.ant.cetypes.propertydefs.ObjectPropertyDefinition" />

@@ -14,6 +14,8 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.Echo;
 
+import com.ecmdeveloper.ant.cetasks.events.ClassSubscriptionTask;
+import com.ecmdeveloper.ant.cetasks.events.EventActionTask;
 import com.ecmdeveloper.ant.cetasks.propertytemplate.BooleanPropertyTemplateTask;
 import com.ecmdeveloper.ant.cetasks.propertytemplate.DateTimePropertyTemplateTask;
 import com.ecmdeveloper.ant.cetasks.propertytemplate.ObjectPropertyTemplateTask;
@@ -190,6 +192,14 @@ public class ObjectStoreTask extends Task {
 	}
 
 	public void addConfiguredClassdefinition(ClassDefinitionTask task) {
+		tasks.add(task);
+	}
+
+	public void addConfiguredClasssubscription(ClassSubscriptionTask task) {
+		tasks.add(task);
+	}
+
+	public void addConfiguredEventaction(EventActionTask task) {
 		tasks.add(task);
 	}
 }
