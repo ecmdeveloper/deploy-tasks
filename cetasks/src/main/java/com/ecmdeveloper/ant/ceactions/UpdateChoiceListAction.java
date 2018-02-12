@@ -17,6 +17,7 @@ import com.filenet.api.constants.RefreshMode;
 import com.filenet.api.constants.TypeID;
 import com.filenet.api.core.Factory;
 import com.filenet.api.core.ObjectStore;
+import com.filenet.api.events.ClassSubscription;
 import com.filenet.api.util.Id;
 
 /**
@@ -33,7 +34,7 @@ public class UpdateChoiceListAction extends ObjectStoreAction {
 	
 	public void execute(ObjectStore objectStore, Task task) {
 		
-		ChoiceList choiceList = getChoiceList(objectStore);
+		ChoiceList choiceList = getByIdOrDisplayName(ChoiceList.class, id, displayName, objectStore);
 		
 		if ( choiceList == null) {
 			task.log("Creating choice list '" + displayName + "'");
@@ -51,18 +52,6 @@ public class UpdateChoiceListAction extends ObjectStoreAction {
 		choiceList.save(RefreshMode.NO_REFRESH);
 	}
 
-	private ChoiceList getChoiceList(ObjectStore objectStore) {
-		ChoiceList choiceList = null;
-		if ( id != null ) {
-			choiceList = getById(id, ChoiceList.class, objectStore);
-		} else if ( displayName != null ) {
-			choiceList = getByDisplayName(displayName, ChoiceList.class, objectStore);
-		} else {
-			throw new BuildException("Choice list must be identified by id or display name");
-		}
-		return choiceList;
-	}
-	
 	@SuppressWarnings("unchecked")
 	private com.filenet.api.collection.ChoiceList getChoices() 
 	{

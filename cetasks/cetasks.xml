@@ -8,7 +8,6 @@
 	<taskdef name="updatecustomobject"	 		classname="com.ecmdeveloper.ant.cetasks.CustomObjectTask"/>
 	<taskdef name="updatechoicelist"	 		classname="com.ecmdeveloper.ant.cetasks.ChoiceListTask"/>
 	<taskdef name="classdefinition"	 			classname="com.ecmdeveloper.ant.cetasks.ClassDefinitionTask"/>
-	<taskdef name="classdefinition"	 			classname="com.ecmdeveloper.ant.cetasks.ClassDefinitionTask"/>
 	<taskdef name="classsubscription"	 		classname="com.ecmdeveloper.ant.cetasks.events.ClassSubscriptionTask"/>
 	<taskdef name="eventaction"	 				classname="com.ecmdeveloper.ant.cetasks.events.EventActionTask"/>
 	
