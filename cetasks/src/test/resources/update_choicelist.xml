@@ -13,15 +13,15 @@
 					 verbose="true">
 			<updatechoicelist displayName="Days of the week" 
 							  id="{5bc1698a-2923-40ec-93e5-019abce35d89}"
-							  dataType="String">
-				This is a list of the 7 days of the week.
-				<choiceitem stringValue="Sunday"/>
-				<choiceitem stringValue="Monday"/>
-				<choiceitem stringValue="Tuesday"/>
-				<choiceitem stringValue="Wednesday"/>
-				<choiceitem stringValue="Thursday"/>
-				<choiceitem stringValue="Friday"/>
-				<choiceitem stringValue="Saturday"/>
+							  dataType="Long">
+				This is a list of the days of the week as integers.
+				<choiceitem integerValue="1" displayName="Monday"/>
+				<choiceitem integerValue="2" displayName="Tuesday"/>
+				<choiceitem integerValue="3" displayName="Wednesday"/>
+				<choiceitem integerValue="4" displayName="Thursday"/>
+				<choiceitem integerValue="5" displayName="Friday"/>
+				<choiceitem integerValue="6" displayName="Saturday"/>
+				<choiceitem integerValue="7" displayName="Sunday"/>
 			</updatechoicelist>
 		</objectstore>			
 	</target>

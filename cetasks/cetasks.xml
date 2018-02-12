@@ -7,20 +7,28 @@
 	<taskdef name="updatecodemodule"	 		classname="com.ecmdeveloper.ant.cetasks.CodeModuleTask"/>
 	<taskdef name="updatecustomobject"	 		classname="com.ecmdeveloper.ant.cetasks.CustomObjectTask"/>
 	<taskdef name="updatechoicelist"	 		classname="com.ecmdeveloper.ant.cetasks.ChoiceListTask"/>
+	<taskdef name="classdefinition"	 			classname="com.ecmdeveloper.ant.cetasks.ClassDefinitionTask"/>
 	
 	<taskdef name="importbackgroundsearchresult" classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchResultTask"/>
 	<taskdef name="importbackgroundsearch" 		 classname="com.ecmdeveloper.ant.cetasks.ImportBackgroundSearchTask"/>
 	<taskdef name="importsweepaction" 		 	 classname="com.ecmdeveloper.ant.cetasks.ImportSweepActionTask"/>
 	<taskdef name="importsweeppolicy" 		 	 classname="com.ecmdeveloper.ant.cetasks.ImportSweepPolicyTask"/>
 	
-	<taskdef name="importdatetimepropertytemplate"	classname="com.ecmdeveloper.ant.cetasks.propertytemplate.ImportDateTimePropertyTemplateTask"/>
-		
+	<taskdef name="datetimepropertytemplate"	classname="com.ecmdeveloper.ant.cetasks.propertytemplate.DateTimePropertyTemplateTask"/>
+	<taskdef name="stringpropertytemplate"		classname="com.ecmdeveloper.ant.cetasks.propertytemplate.StringPropertyTemplateTask"/>
+	<taskdef name="objectpropertytemplate"		classname="com.ecmdeveloper.ant.cetasks.propertytemplate.ObjectPropertyTemplateTask"/>
+	<taskdef name="booleanpropertytemplate"		classname="com.ecmdeveloper.ant.cetasks.propertytemplate.BooleanPropertyTemplateTask"/>
+	 
 	<typedef name="stringproperty"				classname="com.ecmdeveloper.ant.cetypes.StringPropertyValue" />
 	<typedef name="doubleproperty"				classname="com.ecmdeveloper.ant.cetypes.DoublePropertyValue" />
 	<typedef name="propertytemplate"			classname="com.ecmdeveloper.ant.cetypes.PropertyTemplateValue" />
 	<typedef name="timeslot"					classname="com.ecmdeveloper.ant.cetypes.Timeslot" />
 	<typedef name="permission"					classname="com.ecmdeveloper.ant.cetypes.PermissionValue" />
 	<typedef name="choiceitem"					classname="com.ecmdeveloper.ant.cetypes.ChoiceItemValue" />
+	
+	<typedef name="stringpropertydefinition"	classname="com.ecmdeveloper.ant.cetypes.propertydefs.StringPropertyDefinition" />
+	<typedef name="objectpropertydefinition"	classname="com.ecmdeveloper.ant.cetypes.propertydefs.ObjectPropertyDefinition" />
+ 	
 	
 </project>
     	

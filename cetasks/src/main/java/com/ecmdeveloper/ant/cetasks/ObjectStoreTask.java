@@ -14,6 +14,10 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.Echo;
 
+import com.ecmdeveloper.ant.cetasks.propertytemplate.BooleanPropertyTemplateTask;
+import com.ecmdeveloper.ant.cetasks.propertytemplate.DateTimePropertyTemplateTask;
+import com.ecmdeveloper.ant.cetasks.propertytemplate.ObjectPropertyTemplateTask;
+import com.ecmdeveloper.ant.cetasks.propertytemplate.StringPropertyTemplateTask;
 import com.filenet.api.core.Connection;
 import com.filenet.api.core.Domain;
 import com.filenet.api.core.Factory;
@@ -165,7 +169,27 @@ public class ObjectStoreTask extends Task {
 		tasks.add(objectStoreNestedTask);
 	}
 	
+	public void addConfiguredDatetimepropertytemplate(DateTimePropertyTemplateTask task) {
+		tasks.add(task);
+	}
+
+	public void addConfiguredStringpropertytemplate(StringPropertyTemplateTask task) {
+		tasks.add(task);
+	}
+
+	public void addConfiguredObjectpropertytemplate(ObjectPropertyTemplateTask task) {
+		tasks.add(task);
+	}
+
+	public void addConfiguredBooleanpropertytemplate(BooleanPropertyTemplateTask task) {
+		tasks.add(task);
+	}
+	
 	public void addConfiguredChoicelist(ChoiceListTask task) {
+		tasks.add(task);
+	}
+
+	public void addConfiguredClassdefinition(ClassDefinitionTask task) {
 		tasks.add(task);
 	}
 }

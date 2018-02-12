@@ -25,7 +25,7 @@ import com.filenet.api.query.RepositoryRow;
 import com.filenet.api.query.SearchSQL;
 import com.filenet.api.query.SearchScope;
 
-public class UpdateBackgroundSearchResultAction extends ClassDefinitionAction {
+public class UpdateBackgroundSearchResultAction extends AbstractClassDefinitionAction {
 
 	@SuppressWarnings("unchecked")
 	public void execute(ImportBackgroundSearchResultTask task, String description) {
@@ -106,24 +106,5 @@ public class UpdateBackgroundSearchResultAction extends ClassDefinitionAction {
 			PropertyDefinition objPropDef = propertyTemplate.createClassProperty();
 			propertyDefinitionList.add(objPropDef);
 		}
-	}
-
-
-	public PropertyTemplate getPropertyTemplate(String name, ObjectStore objectStore ) 
-	{
-		String queryFormat = "SELECT [This] FROM [PropertyTemplate] WHERE ([SymbolicName] = ''{0}'')";		
-		SearchScope scope = new SearchScope( objectStore );
-		PropertyFilter pf = new PropertyFilter();
-		pf.addIncludeProperty( new FilterElement(0, null, Boolean.TRUE, PropertyNames.ID, null) );
-		String query = MessageFormat.format(queryFormat, name );
-		RepositoryRowSet fetchRows = scope.fetchRows(new SearchSQL( query ), new Integer(1999), pf, Boolean.TRUE );
-		Iterator<?> iterator = fetchRows.iterator();
-		if ( !iterator.hasNext() )
-		{
-			return null;
-		}
-
-		RepositoryRow row = (RepositoryRow) iterator.next();
-		return (PropertyTemplate) row.getProperties().getObjectValue("This");
 	}
 }

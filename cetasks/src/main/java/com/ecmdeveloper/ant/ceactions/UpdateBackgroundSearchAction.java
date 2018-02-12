@@ -24,7 +24,7 @@ import com.filenet.api.core.ObjectStore;
  * @author Ricardo Belfor
  *
  */
-public class UpdateBackgroundSearchAction extends ClassDefinitionAction {
+public class UpdateBackgroundSearchAction extends AbstractClassDefinitionAction {
 
 	private ObjectStore objectStore;
 	private Task task;
