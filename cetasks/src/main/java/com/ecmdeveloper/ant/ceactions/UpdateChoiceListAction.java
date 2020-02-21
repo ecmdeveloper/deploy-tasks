@@ -28,7 +28,7 @@ public class UpdateChoiceListAction extends ObjectStoreAction {
 
 	private ArrayList<ChoiceItemValue> choiceItemValues = new ArrayList<ChoiceItemValue>();
 	private String displayName;
-	private Id id;
+	private String id;
 	private String dataType;
 	private String description;
 	
@@ -38,7 +38,7 @@ public class UpdateChoiceListAction extends ObjectStoreAction {
 		
 		if ( choiceList == null) {
 			task.log("Creating choice list '" + displayName + "'");
-			choiceList = Factory.ChoiceList.createInstance(objectStore,id);
+			choiceList = Factory.ChoiceList.createInstance(objectStore, new Id(id) );
 			choiceList.set_DataType( isStringChoiceList(dataType) ? TypeID.STRING : TypeID.LONG );
 		} else {
 			choiceList.refresh( new String[] { PropertyNames.DISPLAY_NAME });
@@ -97,7 +97,7 @@ public class UpdateChoiceListAction extends ObjectStoreAction {
 	}
 
 	public void setId(String id) {
-		this.id = new Id(id);
+		this.id = id;
 	}
 
 	public String getDataType() {

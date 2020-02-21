@@ -29,6 +29,7 @@ import com.filenet.api.core.ReferentialContainmentRelationship;
 import com.filenet.api.core.VersionSeries;
 import com.filenet.api.exception.EngineRuntimeException;
 import com.filenet.api.exception.ExceptionCode;
+import com.filenet.api.util.Id;
 
 /**
  * @author Ricardo Belfor
@@ -42,6 +43,9 @@ public class DocumentTask extends ObjectStoreNestedTask {
 	private String parentPath;
 	private String name;
 	private Boolean forceCreate = false;
+	private String id;
+	private String vsid;
+	private Boolean deleteExisting;
 	
 	private UpdatePropertiesAction updateObjectStoreObjectAction = new UpdatePropertiesAction();
 	private UpdateDocumentContentAction updateDocumentContentAction = new UpdateDocumentContentAction();
@@ -59,12 +63,24 @@ public class DocumentTask extends ObjectStoreNestedTask {
 			document = null;
 			if ( effectivePath != null) {
 				document = fetchDocumentByPath(effectivePath);
+				
+				if ( document != null && deleteExisting ) {
+					document.delete();
+					document.save(RefreshMode.NO_REFRESH);
+					document = null;
+				} 
+				
 				if ( document == null) {
-					document = Factory.Document.createInstance(getObjectStore(), className);
+					document = Factory.Document.createInstance(
+							getObjectStore(), className,
+							id != null ? new Id(id) : null,
+							vsid != null ? new Id(vsid) : null,
+							ReservationType.EXCLUSIVE);
+
 					newDocument = true;
 					checkin = true;
 					log("Creating new document");
-				} else if ( updateDocumentContentAction.hasContent() ) {
+				} else if ( updateDocumentContentAction.hasContent() ) { 
 					log("Updating existing document");
 					document = getReservation(document);
 					checkin = true;
@@ -218,5 +234,33 @@ public class DocumentTask extends ObjectStoreNestedTask {
 	public void addFileset(FileSet fileset) {
 		updateDocumentContentAction.addFileset(fileset);
     }
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * @param vsid the vsid to set
+	 */
+	public void setVsid(String vsid) {
+		this.vsid = vsid;
+	}
+
+	/**
+	 * @return the deleteExisting
+	 */
+	public Boolean getDeleteExisting() {
+		return deleteExisting;
+	}
+
+	/**
+	 * @param deleteExisting the deleteExisting to set
+	 */
+	public void setDeleteExisting(Boolean deleteExisting) {
+		this.deleteExisting = deleteExisting;
+	}
 	
 }

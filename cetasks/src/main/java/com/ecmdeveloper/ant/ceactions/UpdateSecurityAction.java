@@ -30,15 +30,15 @@ public class UpdateSecurityAction {
 	@SuppressWarnings("unchecked")
 	public void execute(ObjectStoreNestedTask task, Containable object) {
 		
-		AccessPermissionList permissionList = Factory.AccessPermission.createList();
-		
 		if ( !permissionValues.isEmpty() ) {
+
+			AccessPermissionList permissionList = Factory.AccessPermission.createList();
 			for (PermissionValue permissionValue : permissionValues ) {
 				permissionList.add( createPermission(permissionValue, task) );
 			}
+			
+			object.set_Permissions(permissionList);
 		}
-		
-		object.set_Permissions(permissionList);
 	}
 
 	private AccessPermission createPermission(PermissionValue permissionValue, ObjectStoreNestedTask task) {
@@ -56,5 +56,5 @@ public class UpdateSecurityAction {
 	
 	public void add(PermissionValue permissionValue) {
 		permissionValues.add(permissionValue);
-	} 
+	}
 }

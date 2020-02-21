@@ -31,7 +31,7 @@ public class ClassSubscriptionAction extends ObjectStoreAction {
 
 	private List<Event> events = new ArrayList<Event>();
 	private String displayName;
-	private Id id;
+	private String id;
 	private String description;
 	private String className;
 	private Boolean includeSubclasses;
@@ -48,7 +48,7 @@ public class ClassSubscriptionAction extends ObjectStoreAction {
 		
 		if ( subscription == null) {
 			task.log("Creating class description '" + displayName + "'");
-			subscription = Factory.ClassSubscription.createInstance(objectStore, null, id);
+			subscription = Factory.ClassSubscription.createInstance(objectStore, null, new Id(id) );
 		} else {
 			subscription.refresh( new String[] { PropertyNames.DISPLAY_NAME });
 			task.log("Updating class description '" + subscription.get_DisplayName() + "'");
@@ -56,6 +56,7 @@ public class ClassSubscriptionAction extends ObjectStoreAction {
 		
 		ClassDefinition classDefinition = Factory.ClassDefinition.fetchInstance(objectStore, className, null);
 		
+		subscription.set_DisplayName(displayName);
 		subscription.set_SubscriptionTarget(classDefinition);
 		subscription.set_IncludeSubclassesRequested(includeSubclasses);
 		subscription.set_IsSynchronous(synchronous);
@@ -93,7 +94,7 @@ public class ClassSubscriptionAction extends ObjectStoreAction {
 	}
 
 	public void setId(String id) {
-		this.id = new Id(id);
+		this.id = id;
 	}
 
 	public void setDescription(String description) {

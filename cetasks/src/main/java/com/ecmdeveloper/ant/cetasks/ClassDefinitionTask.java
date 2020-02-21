@@ -6,6 +6,7 @@ package com.ecmdeveloper.ant.cetasks;
 import org.apache.tools.ant.BuildException;
 
 import com.ecmdeveloper.ant.ceactions.ClassDefinitionAction;
+import com.ecmdeveloper.ant.cetypes.PermissionValue;
 import com.ecmdeveloper.ant.cetypes.PropertyTemplateValue;
 import com.ecmdeveloper.ant.cetypes.propertydefs.BasePropertyDefinition;
 import com.ecmdeveloper.ant.cetypes.propertydefs.ObjectPropertyDefinition;
@@ -42,6 +43,10 @@ public class ClassDefinitionTask extends ObjectStoreNestedTask{
 
 	public void addConfigured(ObjectPropertyDefinition propertyDefinition) {
 		action.add(propertyDefinition);
+	}
+
+	public void addConfiguredInstancepermission(PermissionValue permissionValue ) {
+		action.addInstancePermission(permissionValue);
 	}
 	
 	public void setDescription(String description) {

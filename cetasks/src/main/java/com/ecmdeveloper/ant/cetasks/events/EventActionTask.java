@@ -14,6 +14,7 @@ import com.ecmdeveloper.ant.cetasks.ObjectStoreNestedTask;
  */
 public class EventActionTask extends ObjectStoreNestedTask {
 
+	// TODO add enabled
 	private EventActionAction action = new EventActionAction();
 
 	public void execute() throws BuildException {

@@ -24,8 +24,8 @@ public class DocumentTaskTest extends BuildFileTest {
 	@Test
 	@Category({TestOfTheDay.class})
 	public void testName() throws Exception {
-		executeTarget("dashboard");
-		assertDebuglogContaining("Woensdag");
+		executeTarget("import");
+//		assertDebuglogContaining("Woensdag");
 		System.out.println(getFullLog());
 	}
 }

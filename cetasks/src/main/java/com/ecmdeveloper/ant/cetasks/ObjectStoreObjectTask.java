@@ -15,6 +15,7 @@ import com.filenet.api.core.IndependentlyPersistableObject;
 import com.filenet.api.core.ObjectStore;
 import com.filenet.api.exception.EngineRuntimeException;
 import com.filenet.api.exception.ExceptionCode;
+import com.filenet.api.util.Id;
 
 /**
  * @author Ricardo Belfor
@@ -28,6 +29,7 @@ public class ObjectStoreObjectTask extends ObjectStoreNestedTask {
 	private String parentPath;
 	private String name;
 	private Boolean forceCreate = false;
+	private String id;
 	
 	private ArrayList<IndependentlyPersistableObject> engineObjects;
 
@@ -77,7 +79,7 @@ public class ObjectStoreObjectTask extends ObjectStoreNestedTask {
 	}
 
 	private Folder createNewFolder() {
-		Folder newFolder = Factory.Folder.createInstance(getObjectStore(), className);
+		Folder newFolder = Factory.Folder.createInstance(getObjectStore(), className, id != null ? new Id(id) : null);
 		newFolder.set_FolderName(name);
 		newFolder.set_Parent( Factory.Folder.fetchInstance(getObjectStore(), parentPath, null) );
 		return newFolder;
@@ -155,6 +157,14 @@ public class ObjectStoreObjectTask extends ObjectStoreNestedTask {
 	 */
 	public void setForceCreate(Boolean forceCreate) {
 		this.forceCreate = forceCreate;
+	}
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 }
 

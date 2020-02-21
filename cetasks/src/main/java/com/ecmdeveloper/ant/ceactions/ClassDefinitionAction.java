@@ -9,6 +9,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 import com.ecmdeveioper.ant.utils.PropertyDefinitionUtils;
+import com.ecmdeveloper.ant.cetypes.PermissionValue;
 import com.ecmdeveloper.ant.cetypes.propertydefs.BasePropertyDefinition;
 import com.ecmdeveloper.ant.cetypes.propertydefs.ObjectPropertyDefinition;
 import com.ecmdeveloper.ant.cetypes.propertydefs.StringPropertyDefinition;
@@ -17,10 +18,13 @@ import com.filenet.api.admin.PropertyDefinition;
 import com.filenet.api.admin.PropertyDefinitionObject;
 import com.filenet.api.admin.PropertyDefinitionString;
 import com.filenet.api.admin.PropertyTemplate;
+import com.filenet.api.collection.AccessPermissionList;
 import com.filenet.api.collection.PropertyDefinitionList;
+import com.filenet.api.constants.AccessType;
 import com.filenet.api.constants.RefreshMode;
 import com.filenet.api.core.Factory;
 import com.filenet.api.core.ObjectStore;
+import com.filenet.api.security.AccessPermission;
 import com.filenet.api.util.Id;
 
 /**
@@ -35,14 +39,13 @@ public class ClassDefinitionAction extends AbstractClassDefinitionAction {
 	private String parentClass;
 	private String description;
 	private ObjectStore objectStore;
-	private Task task;
+	private ArrayList<PermissionValue> instancePermissionValues = new ArrayList<PermissionValue>();
 
 	private ArrayList<BasePropertyDefinition> propertyDefinitions = new ArrayList<BasePropertyDefinition>();
 	
 	@SuppressWarnings("unchecked")
 	public void execute(ObjectStore objectStore, Task task) {
 		this.objectStore = objectStore;
-		this.task = task;
 	
 		ClassDefinition classDefinition = getBySymbolicName(symbolicName, objectStore);
 		boolean newDefinition;
@@ -53,7 +56,7 @@ public class ClassDefinitionAction extends AbstractClassDefinitionAction {
 			classDefinition.set_SymbolicName( symbolicName );
 			newDefinition = true;
 		} else {
-			task.log("Updating Background Search Result Class '" + symbolicName + "'");
+			task.log("Updating Class Definition '" + symbolicName + "'");
 			classDefinition = Factory.ClassDefinition.fetchInstance(objectStore, classDefinition.get_Id(), null);
 			newDefinition = false;
 		}
@@ -69,7 +72,30 @@ public class ClassDefinitionAction extends AbstractClassDefinitionAction {
 		}
 
 		addPropertyDefinitions(objectStore, classDefinition, newDefinition);
+	
+		if ( !instancePermissionValues.isEmpty() ) {
+			classDefinition.set_DefaultInstancePermissions( getDefaultInstancePermissions() );
+		}	
+		
 		classDefinition.save(RefreshMode.REFRESH);		
+	}
+
+	@SuppressWarnings("unchecked")
+	private AccessPermissionList getDefaultInstancePermissions() {
+		AccessPermissionList instancePermissions = Factory.AccessPermission.createList();
+		for (PermissionValue permission : instancePermissionValues ) {
+			instancePermissions.add(getPermission(permission));
+		}
+		return instancePermissions;
+	}
+
+	private AccessPermission getPermission(PermissionValue permission) {
+		AccessPermission accessPermission = Factory.AccessPermission.createInstance();
+		accessPermission.set_AccessMask( permission.getAccessMask() );
+		accessPermission.set_AccessType(AccessType.ALLOW);
+		accessPermission.set_GranteeName(permission.getGranteeName() );
+		accessPermission.set_InheritableDepth(permission.getInheritableDepth() );
+		return accessPermission;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -143,11 +169,11 @@ public class ClassDefinitionAction extends AbstractClassDefinitionAction {
 		this.objectStore = objectStore;
 	}
 
-	public void setTask(Task task) {
-		this.task = task;
-	}
-
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public void addInstancePermission(PermissionValue permissionValue ) {
+		instancePermissionValues.add(permissionValue);
 	}
 }

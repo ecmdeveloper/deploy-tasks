@@ -22,7 +22,6 @@ public class ChoiceListTaskTest extends BuildFileTest {
 	}
 
 	@Test
-	@Category({TestOfTheDay.class})
 	public void testName() throws Exception {
 		executeTarget("import");
 		assertDebuglogContaining("Days of the week");

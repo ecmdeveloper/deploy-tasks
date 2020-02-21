@@ -31,7 +31,7 @@ public class EventActionAction extends ObjectStoreAction {
 		
 	public void execute(ObjectStore objectStore, Task task) {
 		
-		EventAction eventAction = getByIdOrDisplayName(EventAction.class, new Id(id), name, objectStore);
+		EventAction eventAction = getByIdOrDisplayName(EventAction.class, id, name, objectStore);
 
 		if ( eventAction == null ) {
 			task.log("Creating event action '" + name + "'", Project.MSG_VERBOSE);

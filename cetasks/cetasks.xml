@@ -23,9 +23,11 @@
 	 
 	<typedef name="stringproperty"				classname="com.ecmdeveloper.ant.cetypes.StringPropertyValue" />
 	<typedef name="doubleproperty"				classname="com.ecmdeveloper.ant.cetypes.DoublePropertyValue" />
+	<typedef name="idproperty"					classname="com.ecmdeveloper.ant.cetypes.IdPropertyValue" />
 	<typedef name="propertytemplate"			classname="com.ecmdeveloper.ant.cetypes.PropertyTemplateValue" />
 	<typedef name="timeslot"					classname="com.ecmdeveloper.ant.cetypes.Timeslot" />
 	<typedef name="permission"					classname="com.ecmdeveloper.ant.cetypes.PermissionValue" />
+	<typedef name="instancepermission"			classname="com.ecmdeveloper.ant.cetypes.PermissionValue" />
 	<typedef name="choiceitem"					classname="com.ecmdeveloper.ant.cetypes.ChoiceItemValue" />
 	<typedef name="event"						classname="com.ecmdeveloper.ant.cetypes.Event" />
 	

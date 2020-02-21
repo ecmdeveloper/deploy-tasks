@@ -43,9 +43,9 @@ public abstract class ObjectStoreAction {
 		return doQuery(type, objectStore, query);
 	}
 
-	public <T extends IndependentObject> T getById(Id name, Class<T> type, ObjectStore objectStore) {
+	public <T extends IndependentObject> T getById(Id id, Class<T> type, ObjectStore objectStore) {
 		String queryFormat = "SELECT [This] FROM [{0}] WHERE ([Id] = ''{1}'')";
-		String query = MessageFormat.format(queryFormat, type.getSimpleName(), name );
+		String query = MessageFormat.format(queryFormat, type.getSimpleName(), id );
 		return doQuery(type, objectStore, query);
 	}
 	
@@ -76,10 +76,10 @@ public abstract class ObjectStoreAction {
 		return localizedString;
 	}
 	
-	protected <T extends IndependentObject> T getByIdOrDisplayName(Class<T> type, Id id, String displayName, ObjectStore objectStore) {
+	protected <T extends IndependentObject> T getByIdOrDisplayName(Class<T> type, String id, String displayName, ObjectStore objectStore) {
 		T independentObject = null;
 		if ( id != null ) {
-			independentObject = getById(id, type, objectStore);
+			independentObject = getById( new Id(id), type, objectStore);
 		} else if ( displayName != null ) {
 			independentObject = getByDisplayName(displayName, type, objectStore);
 		} else {

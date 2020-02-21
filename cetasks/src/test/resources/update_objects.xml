@@ -33,10 +33,30 @@
 				 url="${filenet.url}" 
 				 objectStoreName="${filenet.objectStoreName}"
 				 verbose="true">
+		
+		<updatedocument parentPath="/dinsdag" name="Bla" className="Document" 
+			forceCreate='true'
+			id="{5f5d616a-9e75-4645-82b2-d8006433b010}">
+			Quid enim de amicitia statueris utilitatis causa expetenda vides. Beatus autem esse in maximarum rerum timore nemo potest. Si quicquam extra virtutem habeatur in bonis. Uterque enim summo bono fruitur, id est voluptate. Tanta vis admonitionis inest in locis; Quid, quod homines infima fortuna, nulla spe rerum gerendarum, opifices denique delectantur historia? Nulla profecto est, quin suam vim retineat a primo ad extremum. Dolere malum est: in crucem qui agitur, beatus esse non potest.			
+			<stringproperty name="DocumentTitle" value="7 uur 25"/>
+			<stringproperty name="MimeType" value="text/plain"/>
+			
+		</updatedocument>
+		
+<!--		
+		<classdefinition symbolicName="Bla" name="Bla" parentClass="Document">
+			<instancepermission accessMask="995603" granteeName="P8Admins" inheritableDepth='0'/>
+		</classdefinition>
 
 		<update parentPath="/dinsdag" name="woensdag" className="Folder" type="folder" forceCreate='true'>
 		</update>
-<!--
+	
+		<updatedocument parentPath="/dinsdag/woensdag" name="9 uur 32" className="Document" forceCreate='true'>
+			Quid enim de amicitia statueris utilitatis causa expetenda vides. Beatus autem esse in maximarum rerum timore nemo potest. Si quicquam extra virtutem habeatur in bonis. Uterque enim summo bono fruitur, id est voluptate. Tanta vis admonitionis inest in locis; Quid, quod homines infima fortuna, nulla spe rerum gerendarum, opifices denique delectantur historia? Nulla profecto est, quin suam vim retineat a primo ad extremum. Dolere malum est: in crucem qui agitur, beatus esse non potest.			
+			<stringproperty name="DocumentTitle" value="7 uur 25"/>
+			<stringproperty name="MimeType" value="text/plain"/>
+		</updatedocument>
+		
 		<update parentPath="/dinsdag" name="9 uur 40" className="Folder" type="folder" forceCreate='false'>
 			<stringproperty name="FolderName" value="9 uur 42"/>
 		</update>

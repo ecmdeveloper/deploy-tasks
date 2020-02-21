@@ -22,7 +22,6 @@ public class PropertyTemplateTaskTest extends BuildFileTest {
 	}
 
 	@Test
-	@Category({TestOfTheDay.class})
 	public void testName() throws Exception {
 		executeTarget("import");
 //		assertDebuglogContaining("GovernanceCountry");
